@@ -9,6 +9,8 @@
     Title="NoteWindow"
     Width="800"
     Height="450"
+    Closing="Window_Closing"
+    Deactivated="Window_Deactivated"
     mc:Ignorable="d">
     <Window.Resources>
         <Style TargetType="{x:Type local:NoteWindow}">
@@ -38,7 +40,9 @@
             AcceptsTab="True"
             Background="{x:Null}"
             BorderThickness="0"
+            CaretBrush="White"
             FontSize="14"
+            TabIndex="0"
             TextWrapping="Wrap" />
         <Grid
             x:Name="grdTitle"

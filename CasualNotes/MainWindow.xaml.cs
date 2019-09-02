@@ -20,206 +20,63 @@ namespace CasualNotes {
   /// Interaction logic for MainWindow.xaml
   /// </summary>
   public partial class MainWindow : Window {
+
+    private NoteManager NoteManager;
+
     public MainWindow() {
       InitializeComponent();
       //NoteWindow nw = new NoteWindow();
       //nw.Show();
       //242x126
-      List<SolidColorBrush> colors = new List<SolidColorBrush>() {
-        new SolidColorBrush(Colors.Bisque),
-        new SolidColorBrush(Colors.CadetBlue),
-        new SolidColorBrush(Colors.Chartreuse),
-        new SolidColorBrush(Colors.LightYellow),
-        new SolidColorBrush(Colors.AliceBlue),
-        new SolidColorBrush(Colors.BlanchedAlmond),
-        new SolidColorBrush(Colors.BlueViolet),
-        new SolidColorBrush(Colors.DeepPink),
-        new SolidColorBrush(Colors.DarkViolet),
-        new SolidColorBrush(Colors.LightCyan),
-        new SolidColorBrush(Colors.LightYellow),
-        new SolidColorBrush(Colors.Magenta),
-        new SolidColorBrush(Colors.Bisque),
-        new SolidColorBrush(Colors.CadetBlue),
-        new SolidColorBrush(Colors.Chartreuse),
-        new SolidColorBrush(Colors.LightYellow),
-        new SolidColorBrush(Colors.AliceBlue),
-        new SolidColorBrush(Colors.BlanchedAlmond),
-        new SolidColorBrush(Colors.BlueViolet),
-        new SolidColorBrush(Colors.DeepPink),
-        new SolidColorBrush(Colors.DarkViolet),
-        new SolidColorBrush(Colors.LightCyan),
-        new SolidColorBrush(Colors.LightYellow),
-        new SolidColorBrush(Colors.Magenta),
-        new SolidColorBrush(Colors.Bisque),
-        new SolidColorBrush(Colors.CadetBlue),
-        new SolidColorBrush(Colors.Chartreuse),
-        new SolidColorBrush(Colors.LightYellow),
-        new SolidColorBrush(Colors.AliceBlue),
-        new SolidColorBrush(Colors.BlanchedAlmond),
-        new SolidColorBrush(Colors.BlueViolet),
-        new SolidColorBrush(Colors.DeepPink),
-        new SolidColorBrush(Colors.DarkViolet),
-        new SolidColorBrush(Colors.LightCyan),
-        new SolidColorBrush(Colors.LightYellow),
-        new SolidColorBrush(Colors.Magenta),
-      };
 
-      List<Color> betterColors = new List<Color>() {
-        Colors.AliceBlue,
-        Colors.PaleGoldenrod,
-        Colors.Orchid,
-        Colors.OrangeRed,
-        Colors.Orange,
-        Colors.OliveDrab,
-        Colors.Olive,
-        Colors.OldLace,
-        Colors.Navy,
-        Colors.NavajoWhite,
-        Colors.Moccasin,
-        Colors.MistyRose,
-        Colors.MintCream,
-        Colors.MidnightBlue,
-        Colors.MediumVioletRed,
-        Colors.MediumTurquoise,
-        Colors.MediumSpringGreen,
-        Colors.MediumSlateBlue,
-        Colors.LightSkyBlue,
-        Colors.LightSlateGray,
-        Colors.LightSteelBlue,
-        Colors.LightYellow,
-        Colors.Lime,
-        Colors.LimeGreen,
-        Colors.PaleGreen,
-        Colors.Linen,
-        Colors.Maroon,
-        Colors.MediumAquamarine,
-        Colors.MediumBlue,
-        Colors.MediumOrchid,
-        Colors.MediumPurple,
-        Colors.MediumSeaGreen,
-        Colors.Magenta,
-        Colors.PaleTurquoise,
-        Colors.PaleVioletRed,
-        Colors.PapayaWhip,
-        Colors.SlateGray,
-        Colors.Snow,
-        Colors.SpringGreen,
-        Colors.SteelBlue,
-        Colors.Tan,
-        Colors.Teal,
-        Colors.SlateBlue,
-        Colors.Thistle,
-        Colors.Transparent,
-        Colors.Turquoise,
-        Colors.Violet,
-        Colors.Wheat,
-        Colors.White,
-        Colors.WhiteSmoke,
-        Colors.Tomato,
-        Colors.LightSeaGreen,
-        Colors.SkyBlue,
-        Colors.Sienna,
-        Colors.PeachPuff,
-        Colors.Peru,
-        Colors.Pink,
-        Colors.Plum,
-        Colors.PowderBlue,
-        Colors.Purple,
-        Colors.Silver,
-        Colors.Red,
-        Colors.RoyalBlue,
-        Colors.SaddleBrown,
-        Colors.Salmon,
-        Colors.SandyBrown,
-        Colors.SeaGreen,
-        Colors.SeaShell,
-        Colors.RosyBrown,
-        Colors.Yellow,
-        Colors.LightSalmon,
-        Colors.LightGreen,
-        Colors.DarkRed,
-        Colors.DarkOrchid,
-        Colors.DarkOrange,
-        Colors.DarkOliveGreen,
-        Colors.DarkMagenta,
-        Colors.DarkKhaki,
-        Colors.DarkGreen,
-        Colors.DarkGray,
-        Colors.DarkGoldenrod,
-        Colors.DarkCyan,
-        Colors.DarkBlue,
-        Colors.Cyan,
-        Colors.Crimson,
-        Colors.Cornsilk,
-        Colors.CornflowerBlue,
-        Colors.Coral,
-        Colors.Chocolate,
-        Colors.AntiqueWhite,
-        Colors.Aqua,
-        Colors.Aquamarine,
-        Colors.Azure,
-        Colors.Beige,
-        Colors.Bisque,
-        Colors.DarkSalmon,
-        Colors.Black,
-        Colors.Blue,
-        Colors.BlueViolet,
-        Colors.Brown,
-        Colors.BurlyWood,
-        Colors.CadetBlue,
-        Colors.Chartreuse,
-        Colors.BlanchedAlmond,
-        Colors.DarkSeaGreen,
-        Colors.DarkSlateBlue,
-        Colors.DarkSlateGray,
-        Colors.HotPink,
-        Colors.IndianRed,
-        Colors.Indigo,
-        Colors.Ivory,
-        Colors.Khaki,
-        Colors.Lavender,
-        Colors.Honeydew,
-        Colors.LavenderBlush,
-        Colors.LemonChiffon,
-        Colors.LightBlue,
-        Colors.LightCoral,
-        Colors.LightCyan,
-        Colors.LightGoldenrodYellow,
-        Colors.LightGray,
-        Colors.LawnGreen,
-        Colors.LightPink,
-        Colors.GreenYellow,
-        Colors.Gray,
-        Colors.DarkTurquoise,
-        Colors.DarkViolet,
-        Colors.DeepPink,
-        Colors.DeepSkyBlue,
-        Colors.DimGray,
-        Colors.DodgerBlue,
-        Colors.Green,
-        Colors.Firebrick,
-        Colors.ForestGreen,
-        Colors.Fuchsia,
-        Colors.Gainsboro,
-        Colors.GhostWhite,
-        Colors.Gold,
-        Colors.Goldenrod,
-        Colors.FloralWhite,
-        Colors.YellowGreen,
-      };
-      Random rand = new Random();
-      List<NoteWindow> nlist = new List<NoteWindow>();
+      NoteManager = new NoteManager();
 
-      //    //var nw = new NoteWindow() { NoteText = s, TitleColor = colors[i], Width=242, Height=126};
-      //    var nw = new NoteWindow() { NoteText = s, TitleColor = RandomColor(betterColors, rand), Width = 181.5, Height = 94.5, Top = rand.Next(980), Left = rand.Next(-1920, -160)};
+      NoteManager.NewNote += NoteManager_NewNote;
+      NoteManager.NoteClosed += NoteManager_NoteClosed;
+      NoteManager.NoteTextChanged += NoteManager_NoteTextChanged;
 
-      //for (double left = -1920; left < 1900; left += 182.5) {
-      //  for(double top = 0; top < 1000; top+= 70/*95.5*/) {
-      //    nlist.Add(new NoteWindow() { NoteText = "", TitleColor = RandomColor(betterColors, rand), Width = 181.5, Height = 94.5, Left = left, Top = top });
+      NoteManager.LoadNotes("CasualNotes.json");
+
+      if(NoteManager.IsEmpty) {
+        NoteWindow nw = new NoteWindow(NoteManager);
+        nw.Show();
+      }
+
     }
 
-    static SolidColorBrush RandomColor(IEnumerable<Color> colors, Random rand) {
-      return new SolidColorBrush(colors.ElementAt(rand.Next(0, colors.Count() - 1)));
+    private void NoteManager_NoteTextChanged(object sender, NoteEventArgs e) {
+      var control = lvNotes.Items.Cast<Control>().FirstOrDefault(c => c.Tag == e.NoteWindow);
+      if(control != null && control is Button btn) {
+        btn.Content = e.NoteWindow.NoteText;
+      }
+    }
+
+    private void NoteManager_NoteClosed(object sender, NoteEventArgs e) {
+      var control = lvNotes.Items.Cast<Control>().FirstOrDefault(c => c.Tag == e.NoteWindow);
+      if (control != null)
+        lvNotes.Items.Remove(control);
+    }
+
+    private void NoteManager_NewNote(object sender, NoteEventArgs e) {
+      Button btn = new Button();
+      btn.Width = 300;
+      btn.Content = e.NoteWindow.NoteText;
+      btn.Click += (s, ce) => {
+        e.NoteWindow.Show();
+        e.NoteWindow.Activate();
+      };
+      btn.MouseDown += (s, ce) => {
+        if (ce.ChangedButton == MouseButton.Middle && ce.ButtonState == MouseButtonState.Pressed) {
+          NoteManager.Remove(e.NoteWindow);
+          e.NoteWindow.Close();
+        }
+      };
+      btn.Tag = e.NoteWindow;
+      int index = lvNotes.Items.Add(btn);
+    }
+
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+      NoteManager.Close();
     }
   }
 }

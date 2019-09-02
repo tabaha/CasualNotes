@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
 
 namespace CasualNotes {
   /// <summary>
@@ -26,6 +27,8 @@ namespace CasualNotes {
 
     private bool headerIsExpanded = false;
 
+    private NoteManager NoteManager;
+
     public string NoteText {
       get {
         return txtNote.Text;
@@ -35,15 +38,15 @@ namespace CasualNotes {
       }
     }
 
-    public Brush BackgroundColor {
-      get {
-        return Background;
-      }
-      set {
-        Background = value;
-        txtNote.Background = value;
-      }
-    }
+    //public Brush Background {
+    //  get {
+    //    return Background;
+    //  }
+    //  set {
+    //    base.Background = value;
+    //    txtNote.Background = value;
+    //  }
+    //}
 
     public Brush TitleColor {
       get {
@@ -59,20 +62,23 @@ namespace CasualNotes {
         return Foreground;
       }
       set {
-        Foreground = txtNote.Foreground = value;
+        Foreground = txtNote.Foreground = txtNote.CaretBrush = value;
       }
     }
 
-    public NoteWindow() {
+    public NoteWindow(NoteManager noteManager) {
       InitializeComponent();
 
-      //BackgroundColor = new SolidColorBrush(Color.FromRgb(51, 51, 51));
       Background = new SolidColorBrush(Color.FromRgb(51, 51, 51));
       txtNote.Foreground = new SolidColorBrush(Colors.White);
       txtNote.CaretBrush = txtNote.Foreground;
+      TitleColor = new SolidColorBrush(Colors.LightGoldenrodYellow);
+
+      NoteManager = noteManager;
+      noteManager.Add(this);
     }
 
-    public NoteWindow(string text, SolidColorBrush titleColor, double width, double height, double top, double left) : this() {
+    public NoteWindow(NoteManager noteManager, string text, SolidColorBrush titleColor, double width, double height, double top, double left) : this(noteManager) {
       NoteText = text;
       TitleColor = titleColor;
       Width = width;
@@ -81,9 +87,23 @@ namespace CasualNotes {
       Left = left;
     }
 
-    //protected void OnNoteCreated(EventArgs eventArgs) {
-    //  NoteCreated?.Invoke(this, eventArgs);
-    //}
+    public NoteWindow(NoteManager noteManager, string text, List<byte> titleColor, List<byte> backgroundColor, double width, double height, double top, double left) : this(noteManager) {
+      NoteText = text;
+      if(titleColor.Count == 3)
+        TitleColor = new SolidColorBrush(Color.FromRgb(titleColor[0], titleColor[1], titleColor[2]));
+      if (titleColor.Count == 4)
+        TitleColor = new SolidColorBrush(Color.FromArgb(titleColor[0], titleColor[1], titleColor[2], titleColor[3]));
+
+      if (backgroundColor.Count == 3)
+        Background = new SolidColorBrush(Color.FromRgb(backgroundColor[0], backgroundColor[1], backgroundColor[2]));
+      if (backgroundColor.Count == 4)
+        Background = new SolidColorBrush(Color.FromArgb(backgroundColor[0], backgroundColor[1], backgroundColor[2], backgroundColor[3]));
+
+      Width = width;
+      Height = height;
+      Top = top;
+      Left = left;
+    }
 
     private void GrdTitle_MouseEnter(object sender, MouseEventArgs e) {
       if (!headerIsExpanded) {
@@ -117,13 +137,34 @@ namespace CasualNotes {
 
 
     private void BtnNewNote_Click(object sender, RoutedEventArgs e) {
-      var nw = new NoteWindow();
+      var nw = new NoteWindow(NoteManager);
       nw.TitleColor = TitleColor;
-      nw.Show();
+      //nw.Show();
     }
 
     private void BtnCloseNote_Click(object sender, RoutedEventArgs e) {
+      NoteManager.Remove(this);
       this.Close();
+    }
+
+    private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e) {
+      
+    }
+
+    private void Window_Deactivated(object sender, EventArgs e) {
+      NoteManager.UpdateNote(this);
+    }
+
+    public CasualNote ToCasualNote() {
+      return new CasualNote() {
+        Text = NoteText,
+        Height = Height,
+        Width = Width,
+        Left = Left,
+        Top = Top,
+        TitleColor = TitleColor != null && TitleColor is SolidColorBrush btc ? new List<byte> { btc.Color.R, btc.Color.G, btc.Color.B } : null,
+        BackgroundColor = Background != null && Background is SolidColorBrush bbc ? new List<byte> { bbc.Color.R, bbc.Color.G, bbc.Color.B } : null,
+      };
     }
   }
 }

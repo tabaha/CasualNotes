@@ -8,12 +8,13 @@
     Title="MainWindow"
     Width="340.581"
     Height="450"
+    Closing="Window_Closing"
     mc:Ignorable="d">
     <Grid>
         <ListView x:Name="lvNotes" Margin="0,0,0,0">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn />
+                    <GridViewColumn Width="400" Header="Text" />
                 </GridView>
             </ListView.View>
         </ListView>
