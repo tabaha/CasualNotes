@@ -1,0 +1,71 @@
+﻿<Window
+    x:Class="CasualNotes.NoteWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:CasualNotes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+    Title="NoteWindow"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style TargetType="{x:Type local:NoteWindow}">
+            <Setter Property="shell:WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <shell:WindowChrome
+                        CaptionHeight="0"
+                        CornerRadius="0"
+                        GlassFrameThickness="4"
+                        NonClientFrameEdges="None"
+                        ResizeBorderThickness="4"
+                        UseAeroCaptionButtons="False" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid x:Name="grdMain">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7.5" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <TextBox
+            x:Name="txtNote"
+            Grid.Row="1"
+            Margin="12,34,12,18"
+            AcceptsReturn="True"
+            AcceptsTab="True"
+            Background="{x:Null}"
+            BorderThickness="0"
+            FontSize="14"
+            TextWrapping="Wrap" />
+        <Grid
+            x:Name="grdTitle"
+            Grid.Row="0"
+            MouseEnter="GrdTitle_MouseEnter"
+            MouseLeave="GrdTitle_MouseLeave"
+            MouseLeftButtonDown="GrdTitle_MouseLeftButtonDown">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="32" />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition Width="32" />
+            </Grid.ColumnDefinitions>
+            <Button
+                x:Name="btnNewNote"
+                Grid.Column="0"
+                Background="#19FFFFFF"
+                BorderBrush="{x:Null}"
+                Click="BtnNewNote_Click" />
+            <Button
+                x:Name="btnCloseNote"
+                Grid.Column="5"
+                Background="#19FF0000"
+                BorderBrush="{x:Null}"
+                Click="BtnCloseNote_Click" />
+        </Grid>
+    </Grid>
+</Window>
